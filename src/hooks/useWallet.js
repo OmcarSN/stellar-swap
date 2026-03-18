@@ -9,23 +9,51 @@ export function useWallet() {
     setConnecting(true)
     setError(null)
     try {
-      const { isConnected } = await window.freighter?.isConnected()
-      if (!isConnected) {
-        throw new Error('Wallet not found. Please install Freighter extension.')
+      const freighterApi = await import('@stellar/freighter-api')
+      
+      const connectedObj = await freighterApi.isConnected()
+      const connected = connectedObj?.isConnected ?? connectedObj
+      
+      if (!connected) {
+        setError('Wallet not found. Please install Freighter extension.')
+        setConnecting(false)
+        return
       }
-      const result = await window.freighter?.getPublicKey()
-      if (!result) {
-        throw new Error('User rejected the connection request.')
+
+      let pubKey = null
+
+      // Try new API (v2+)
+      if (typeof freighterApi.requestAccess === 'function') {
+        const result = await freighterApi.requestAccess()
+        pubKey = result?.address ?? result?.publicKey ?? result
       }
-      setAddress(result)
+
+      // Try getAddress (v2)
+      if (!pubKey && typeof freighterApi.getAddress === 'function') {
+        const result = await freighterApi.getAddress()
+        pubKey = result?.address ?? result
+      }
+
+      // Try getPublicKey (v1)
+      if (!pubKey && typeof freighterApi.getPublicKey === 'function') {
+        pubKey = await freighterApi.getPublicKey()
+      }
+
+      if (!pubKey) {
+        setError('Connection rejected. Please approve in Freighter.')
+        setConnecting(false)
+        return
+      }
+
+      setAddress(pubKey)
     } catch (err) {
       const msg = err?.message?.toLowerCase() || ''
-      if (msg.includes('not found') || msg.includes('install')) {
-        setError('Wallet not found. Please install Freighter.')
-      } else if (msg.includes('rejected') || msg.includes('cancel')) {
+      if (msg.includes('reject') || msg.includes('cancel') || msg.includes('denied')) {
         setError('Connection rejected. Please approve in your wallet.')
+      } else if (msg.includes('balance') || msg.includes('insufficient')) {
+        setError('Insufficient balance to complete this swap.')
       } else {
-        setError('Something went wrong: ' + err.message)
+        setError('Error: ' + err.message)
       }
     }
     setConnecting(false)

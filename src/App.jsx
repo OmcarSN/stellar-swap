@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import WalletConnect from './components/WalletConnect'
 import SwapCard from './components/SwapCard'
+import EventFeed from './components/EventFeed'
 
 function App() {
   const [address, setAddress] = useState(null)
@@ -10,19 +11,28 @@ function App() {
       minHeight: '100vh',
       background: '#0f0f1a',
       color: 'white',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
       fontFamily: 'sans-serif',
-      gap: '24px',
-      padding: '20px'
+      padding: '30px 20px',
     }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', margin: 0 }}>
-        🌟 Stellar Swap
-      </h1>
-      <WalletConnect onAddressChange={setAddress} />
-      <SwapCard address={address} />
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 'bold', margin: '0 0 16px' }}>
+          🌟 Stellar Swap
+        </h1>
+        <WalletConnect onAddressChange={setAddress} />
+      </div>
+
+      {/* Main Layout */}
+      <div style={{
+        display: 'flex',
+        gap: '24px',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+      }}>
+        <SwapCard address={address} />
+        <EventFeed />
+      </div>
     </div>
   )
 }

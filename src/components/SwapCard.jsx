@@ -11,7 +11,7 @@ export default function SwapCard({ address }) {
   const [toToken, setToToken] = useState('USDC')
   const [amount, setAmount] = useState('')
   const [slippage, setSlippage] = useState('1')
-  const [txStatus, setTxStatus] = useState('idle') // idle | pending | success | failed
+  const [txStatus, setTxStatus] = useState('idle')
   const [txHash, setTxHash] = useState(null)
   const [error, setError] = useState(null)
 
@@ -40,22 +40,21 @@ export default function SwapCard({ address }) {
       setError('Insufficient balance to complete this swap.')
       return
     }
-
     setError(null)
     setTxStatus('pending')
     setTxHash(null)
-
     try {
-      // Simulate contract call delay
-      await new Promise(resolve => setTimeout(resolve, 2000))
-
-      // Simulate random success/fail (80% success rate)
-      if (Math.random() > 0.2) {
-        const fakeHash = 'TX' + Math.random().toString(36).substring(2, 15).toUpperCase()
-        setTxHash(fakeHash)
+      const { callSwapContract } = await import('../utils/contract.js')
+      const result = await callSwapContract(
+        fromToken,
+        toToken,
+        Math.floor(parseFloat(amount) * 100)
+      )
+      if (result.success) {
+        setTxHash(result.txHash)
         setTxStatus('success')
       } else {
-        throw new Error('Transaction failed on network.')
+        throw new Error(result.error || 'Transaction failed on network.')
       }
     } catch (err) {
       setError(err.message)
@@ -76,17 +75,13 @@ export default function SwapCard({ address }) {
         Swap Tokens
       </h2>
 
-      {/* From Token */}
       <div style={{ background: '#0f0f1a', borderRadius: '12px', padding: '16px', marginBottom: '8px' }}>
         <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '8px' }}>From</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <select
             value={fromToken}
             onChange={e => setFromToken(e.target.value)}
-            style={{
-              background: '#2d2d44', color: 'white', border: 'none',
-              borderRadius: '8px', padding: '8px 12px', fontSize: '1rem', cursor: 'pointer'
-            }}
+            style={{ background: '#2d2d44', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '1rem', cursor: 'pointer' }}
           >
             {TOKENS.filter(t => t.symbol !== toToken).map(t => (
               <option key={t.symbol} value={t.symbol}>{t.symbol}</option>
@@ -97,37 +92,25 @@ export default function SwapCard({ address }) {
             placeholder="0.00"
             value={amount}
             onChange={e => setAmount(e.target.value)}
-            style={{
-              flex: 1, background: 'transparent', border: 'none', color: 'white',
-              fontSize: '1.4rem', outline: 'none', textAlign: 'right'
-            }}
+            style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', fontSize: '1.4rem', outline: 'none', textAlign: 'right' }}
           />
         </div>
       </div>
 
-      {/* Switch Button */}
       <div style={{ textAlign: 'center', margin: '4px 0' }}>
         <button
           onClick={switchTokens}
-          style={{
-            background: '#2d2d44', border: 'none', color: '#a5b4fc',
-            borderRadius: '50%', width: '36px', height: '36px',
-            cursor: 'pointer', fontSize: '1.1rem'
-          }}
+          style={{ background: '#2d2d44', border: 'none', color: '#a5b4fc', borderRadius: '50%', width: '36px', height: '36px', cursor: 'pointer', fontSize: '1.1rem' }}
         >⇅</button>
       </div>
 
-      {/* To Token */}
       <div style={{ background: '#0f0f1a', borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
         <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '8px' }}>To (estimated)</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <select
             value={toToken}
             onChange={e => setToToken(e.target.value)}
-            style={{
-              background: '#2d2d44', color: 'white', border: 'none',
-              borderRadius: '8px', padding: '8px 12px', fontSize: '1rem', cursor: 'pointer'
-            }}
+            style={{ background: '#2d2d44', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '1rem', cursor: 'pointer' }}
           >
             {TOKENS.filter(t => t.symbol !== fromToken).map(t => (
               <option key={t.symbol} value={t.symbol}>{t.symbol}</option>
@@ -139,7 +122,6 @@ export default function SwapCard({ address }) {
         </div>
       </div>
 
-      {/* Slippage */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', fontSize: '0.85rem', color: '#888' }}>
         <span>Slippage tolerance</span>
         <div style={{ display: 'flex', gap: '6px' }}>
@@ -147,37 +129,27 @@ export default function SwapCard({ address }) {
             <button
               key={s}
               onClick={() => setSlippage(s)}
-              style={{
-                background: slippage === s ? '#6366f1' : '#2d2d44',
-                color: 'white', border: 'none', borderRadius: '6px',
-                padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem'
-              }}
+              style={{ background: slippage === s ? '#6366f1' : '#2d2d44', color: 'white', border: 'none', borderRadius: '6px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem' }}
             >{s}%</button>
           ))}
         </div>
       </div>
 
-      {/* Swap Button */}
       <button
         onClick={handleSwap}
         disabled={txStatus === 'pending'}
-        style={{
-          width: '100%', padding: '14px', borderRadius: '12px', border: 'none',
-          background: txStatus === 'pending' ? '#444' : '#6366f1',
-          color: 'white', fontSize: '1rem', fontWeight: 'bold',
-          cursor: txStatus === 'pending' ? 'not-allowed' : 'pointer',
-        }}
+        style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', background: txStatus === 'pending' ? '#444' : '#6366f1', color: 'white', fontSize: '1rem', fontWeight: 'bold', cursor: txStatus === 'pending' ? 'not-allowed' : 'pointer' }}
       >
         {txStatus === 'pending' ? '⏳ Swapping...' : 'Swap Now'}
       </button>
 
-      {/* TX Status */}
       {txStatus === 'success' && (
         <div style={{ marginTop: '16px', padding: '12px', background: '#052e16', borderRadius: '10px', fontSize: '0.85rem' }}>
           <div style={{ color: '#4ade80', fontWeight: 'bold' }}>✅ Swap Successful!</div>
-          <div style={{ color: '#888', marginTop: '4px', wordBreak: 'break-all' }}>
-            TX: {txHash}
-          </div>
+          <div style={{ color: '#888', marginTop: '4px', wordBreak: 'break-all' }}>TX: {txHash}</div>
+          <a href={'https://stellar.expert/explorer/testnet/tx/' + txHash} target="_blank" rel="noreferrer" style={{ color: '#6366f1', fontSize: '0.8rem', marginTop: '6px', display: 'block' }}>
+            View on Stellar Explorer
+          </a>
         </div>
       )}
 
