@@ -26,11 +26,12 @@ A Token Swap Interface built on Stellar testnet with multi-wallet support and re
 https://stellar-swap-lyart.vercel.app
 
 ## Screenshots
-### Wallet Connected
-![Wallet Connected](screenshots/wallet-connected.png)
 
-### Swap Successful
-![Swap Successful](screenshots/swap-success.png)
+### Wallet Options Available
+![Wallet](https://raw.githubusercontent.com/OmcarSN/stellar-swap/main/Screenshot%202026-03-19%20154230.png)
+
+### Swap Successful  
+![Swap](https://raw.githubusercontent.com/OmcarSN/stellar-swap/main/Screenshot%202026-03-19%20154305.png)
 
 ## Deployed Contract Address
 CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
