@@ -27,11 +27,11 @@ https://stellar-swap-lyart.vercel.app
 
 ## Screenshots
 
-### Wallet Connected
-![Wallet Connected](https://raw.githubusercontent.com/OmcarSN/stellar-swap/main/Screenshot_2026-03-19_154230.png)
+### Wallet Connected & Live Activity
+![Wallet Connected](Screenshot%202026-03-19%20154230.png)
 
-### Swap Successful
-![Swap Successful](https://raw.githubusercontent.com/OmcarSN/stellar-swap/main/Screenshot_2026-03-19_154305.png)
+### Swap Successful with TX Hash
+![Swap Successful](Screenshot%202026-03-19%20154305.png)
 
 ## Deployed Contract Address
 CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
