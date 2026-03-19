@@ -12,7 +12,7 @@ pub enum DataKey {
     SwapCount,
 }
 
-const SWAP_TOPIC: Symbol = Symbol::short("swap");
+use soroban_sdk::symbol_short;
 
 #[contract]
 pub struct StellarSwapContract;
