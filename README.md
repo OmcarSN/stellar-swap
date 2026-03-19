@@ -1,5 +1,3 @@
-# stellar-swap
->>>>>>> c91bd440d62560f03eaebf9619d1dde790c85e2a
 # 🌟 Stellar Swap
 
 A Token Swap Interface built on Stellar testnet with multi-wallet support and real-time events.
