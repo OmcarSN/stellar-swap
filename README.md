@@ -39,7 +39,10 @@ Verifiable on Stellar Explorer:
 https://stellar.expert/explorer/testnet/contract/CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
 
 ## Transaction Hash
-0D3F61C8C689DA8CBD0070969A9262DA041804643177A20D88CA461A3ABE1EBA
+95e775f31fdbc3ee677d2845f1900b71e1c7f3bdec5f3e9e6e22e7f5774786d6
+
+Verifiable on Stellar Explorer:
+https://stellar.expert/explorer/testnet/tx/95e775f31fdbc3ee677d2845f1900b71e1c7f3bdec5f3e9e6e22e7f5774786d6
 
 ## Setup Instructions
 1. Clone: `git clone https://github.com/OmcarSN/stellar-swap`
