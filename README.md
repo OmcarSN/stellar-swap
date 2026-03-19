@@ -18,3 +18,45 @@ If you are developing a production application, we recommend using TypeScript wi
 =======
 # stellar-swap
 >>>>>>> c91bd440d62560f03eaebf9619d1dde790c85e2a
+# 🌟 Stellar Swap
+
+A Token Swap Interface built on Stellar testnet with multi-wallet support and real-time events.
+
+## Live Demo
+https://stellar-swap-lyart.vercel.app
+
+## Screenshots
+### Wallet Connected
+![Wallet Connected](screenshots/wallet-connected.png)
+
+### Swap Successful
+![Swap Successful](screenshots/swap-success.png)
+
+## Deployed Contract Address
+CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
+
+Verifiable on Stellar Explorer:
+https://stellar.expert/explorer/testnet/contract/CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
+
+## Transaction Hash
+0D3F61C8C689DA8CBD0070969A9262DA041804643177A20D88CA461A3ABE1EBA
+
+## Setup Instructions
+1. Clone: `git clone https://github.com/OmcarSN/stellar-swap`
+2. Install: `npm install`
+3. Run: `npm run dev`
+4. Open: `http://localhost:5173`
+
+## Features
+- Multi-wallet support via Freighter
+- 3 error types: wallet not found, rejected, insufficient balance
+- Real-time swap event feed (updates every 3 seconds)
+- Transaction status tracking (pending / success / failed)
+- Soroban smart contract deployed on testnet
+- Slippage tolerance control (0.5% / 1% / 2%)
+
+## Tech Stack
+- React + Vite
+- Stellar SDK + Soroban
+- Freighter Wallet
+- Vercel (deployment)
