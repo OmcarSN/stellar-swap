@@ -1,5 +1,4 @@
 # 🌟 Stellar Swap
-
 A Token Swap Interface built on Stellar testnet with multi-wallet support and real-time events.
 
 ## Live Demo
@@ -17,13 +16,13 @@ https://stellar-swap-lyart.vercel.app
 CBWEC4ROB7UQFFBPVKCWECJGP2LGEIOTQNCINO3LI22NRGDMCRJ7GFWG
 
 Verifiable on Stellar Explorer:
-https://stellar.expert/explorer/testnet/contract/CBFCGN4GTFTVXOT3QOGBCMBKYPRRSGOBVW73QWMGEETCN2C7U7UNWTBZ
+https://stellar.expert/explorer/testnet/contract/CBWEC4ROB7UQFFBPVKCWECJGP2LGEIOTQNCINO3LI22NRGDMCRJ7GFWG
 
 ## Transaction Hash
 8a4d2768c149547b9a9bef379a1c4880be3c4d72c8dff1dc871322d126bff6a9
 
 Verifiable on Stellar Explorer:
-https://stellar.expert/explorer/testnet/tx/95e775f31fdbc3ee677d2845f1900b71e1c7f3bdec5f3e9e6e22e7f5774786d6
+https://stellar.expert/explorer/testnet/tx/8a4d2768c149547b9a9bef379a1c4880be3c4d72c8dff1dc871322d126bff6a9
 
 ## Setup Instructions
 1. Clone: `git clone https://github.com/OmcarSN/stellar-swap`
