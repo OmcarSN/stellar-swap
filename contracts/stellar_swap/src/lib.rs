@@ -1,8 +1,7 @@
- 
 #![no_std]
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, token, Address, Env, Symbol,
+    contract, contractimpl, contracttype, symbol_short, token, Address, Env,
 };
 
 #[contracttype]
@@ -11,8 +10,6 @@ pub enum DataKey {
     Admin,
     SwapCount,
 }
-
-use soroban_sdk::symbol_short;
 
 #[contract]
 pub struct StellarSwapContract;
@@ -70,7 +67,7 @@ impl StellarSwapContract {
             .set(&DataKey::SwapCount, &(count + 1));
 
         env.events().publish(
-            (SWAP_TOPIC, address_a.clone(), address_b.clone()),
+            (symbol_short!("swap"), address_a.clone(), address_b.clone()),
             (token_a, token_b, amount_a, amount_b),
         );
     }
