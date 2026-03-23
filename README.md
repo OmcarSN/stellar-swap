@@ -16,7 +16,7 @@ https://stellar-swap-lyart.vercel.app
 CBWEC4ROB7UQFFBPVKCWECJGP2LGEIOTQNCINO3LI22NRGDMCRJ7GFWG
 
 Verifiable on Stellar Explorer:
-https://stellar.expert/explorer/testnet/contract/CBWEC4ROB7UQFFBPVKCWECJGP2LGEIOTQNCINO3LI22NRGDMCRJ7GFWG
+(https://stellar.expert/explorer/testnet/contract/CBWEC4ROB7UQFFBPVKCWECJGP2LGEIOTQNCINO3LI22NRGDMCRJ7GFWG)
 
 ## Transaction Hash
 8a4d2768c149547b9a9bef379a1c4880be3c4d72c8dff1dc871322d126bff6a9
